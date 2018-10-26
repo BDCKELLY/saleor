@@ -1898,7 +1898,7 @@ type Transaction implements Node {
   created: DateTime!
   payment: Payment!
   token: String!
-  transactionType: TransactionTransactionType!
+  kind: TransactionKind!
   isSuccess: Boolean!
   currency: String!
   amount: Float!
@@ -1916,7 +1916,7 @@ type TransactionCountableEdge {
   cursor: String!
 }
 
-enum TransactionTransactionType {
+enum TransactionKind {
   AUTH
   CAPTURE
   REFUND
