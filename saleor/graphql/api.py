@@ -1,6 +1,8 @@
 import graphene
 import graphql_jwt
 from graphql_jwt.decorators import login_required, permission_required
+import graphene_django_optimizer as gql_optimizer
+from graphene_django.fields import DjangoConnectionField
 
 from .account.mutations import (
     CustomerCreate, CustomerDelete, CustomerUpdate, CustomerPasswordReset,
@@ -74,8 +76,8 @@ class Query(ProductQueries):
     checkout = graphene.Field(
         Checkout, description='Single checkout.',
         token=graphene.Argument(graphene.UUID))
-    checkouts = PrefetchingConnectionField(
-        Checkout, description='List of checkouts.')
+    checkouts = DjangoConnectionField(
+        Checkout,description='List of checkouts.')
     checkout_lines = PrefetchingConnectionField(
         CheckoutLine, description='List of checkout lines')
     checkout_line = graphene.Field(
