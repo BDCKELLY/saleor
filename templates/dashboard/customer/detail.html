@@ -85,6 +85,19 @@
       </div>
 
       <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {% trans "Customer attributes" context "Customer attributes card title" %}
+            </span>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'dashboard:customer-attributes-update' customer.pk %}" class="btn-flat waves-effect">
+                {% trans "Edit attributes" context "Customer action" %}
+              </a>
+          </div>
+      </div>
+
+      <div class="card">
         <div class="data-table-header{% if not customer_orders %} data-table-header--no-data{% endif %}">
           <h5 class="data-table-title {% if not customer_orders %} data-table-title--no-data{% endif %}">
             {% trans "Recent orders" context "Customer recent orders table title" %}

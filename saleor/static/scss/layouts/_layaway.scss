@@ -1,16 +1,51 @@
-.home {
+.layaway {
   text-align: center;
   color: $black;
   h1 {
     font-weight: 700;
     color: $gold;
     text-transform: uppercase;
+    text-align: center;
     @include media-breakpoint-down(sm) {
       font-size: 2.5rem;
     }
   }
   .btn {
     margin-top: $global-margin;
+  }
+  &--calendar {
+    border:1px solid $black;
+    background-color: $gold;
+    thead > tr > th {
+      border:1px solid $black;
+    }
+    tbody > tr > td {
+      border:1px solid $black;
+    }
+    thead > tr > th.clear {
+        border: none;
+        background-color: $white;
+    }
+    tbody > tr > td.clear {
+        border: none;
+        background-color: $white;
+    }
+    caption {
+      color: $black;
+    }
+    &--white {
+      background-color: $white;
+    }
+    &--clear {
+      border: none;
+      background-color: $white;
+      td {
+        border: none;
+      }
+      th {
+        border: none;
+      }
+    }
   }
   &--content-wrapper {
      display: table;
@@ -19,7 +54,7 @@
   }
   &--content-inner {
       display: table-cell;
-      text-align: center;
+      text-align: left;
       vertical-align: middle;
       color: $black;
       padding-left: $global-padding;
@@ -41,48 +76,18 @@
       padding-top: 100%;
     }
   }
-  &--square2 {
-    background-size: cover;
-    position: relative;
-    &:before {
-      content: "";
-      display: block;
-      padding-top: 100%;
-    }
-  }
   &__block1 {
-    .home--square {
-      // background-image: url('../images/block1.jpg');
+    .layaway--square {
       background-image: none;
-      // background-color: red;
       @include media-breakpoint-up(md) {
         &:before {
-          padding-top: 50%;
+          padding-top: 80%;
         }
       }
     }
-  }
-  &__block2 {
-    margin-top: $global-margin * 2;
-    .home--square {
-      // background-image: url('../images/block2.jpg');
-      background-image: none;
-      // background-color: red;
-    } 
-  }
-  &__block3 {
-    margin-top: $global-margin * 2;
-    .home--square {
-      // background-image: url('../images/block3.jpg');
-      background-image: none;
-      // background-color: red;
-    }
-  }
-  &__featured {
-    color: $body-color;
-    h2 {
-      text-transform: uppercase;
-      margin: $global-margin * 2 0;
+    li {
+      font-size: $h2-font-size;
+      text-align: left;
     }
   }
 }

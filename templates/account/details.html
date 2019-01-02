@@ -43,8 +43,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-            <h3>{% trans "Settings" context "User profile tab" %}</h3>
+          <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+            <h3>{% trans "Profile" context "User profile tab" %}</h3>
           </a>
         </li>
       </ul>
@@ -151,23 +151,40 @@
           {% endif %}
         </div>
       </div>
-      <div class="tab-pane fade" id="settings" role="tabpanel">
-        <div class="row ">
-          <div class="d-block mx-auto text-center">
-            <form action="{% url 'account:delete' %}" method="post">
-              {% csrf_token %}
-              <p>
-                {% blocktrans context "Message informing about the process of account removal" %}
-                  If you'd like to remove your account, please click on the button below and a confirmation email will be sent to you.
-                {% endblocktrans %}
-              </p>
-              <button type="submit" class="btn danger narrow text-center">
-                {% trans "Remove Account" context "Remove account form action" %}
-              </button>
-            </form>
+      <div class="tab-pane fade" id="profile" role="tabpanel">
+        <div class="card-deck-wrapper account__addresses">
+            <div class="row card-deck">
+                <div class="col-md-6">
+                  <div class="card card-block">
+                      <p class="card-title">
+                        {{ profile.get_title_display }}
+                        {{ profile.first_name }}
+                        {{ profile.middle_initial }}
+                        {{ profile.last_name }}
+                      </p>
+                      <br>
+                      <p class="card-text">{% trans "Gender: " context "User profile" %}{{ profile.gender }}</p>
+                      <p class="card-text">{% trans "Marital status: " context "User profile" %}{{ profile.marital_status }}</p>
+                      <p class="card-text">{% trans "Date of birth: " context "User profile" %}{{ profile.dob }}</p>
+                      <p class="card-text">{% trans "Occupation: " context "User profile" %}{{ profile.occupation }}</p>
+                      <p class="card-text">{% trans "Referral: " context "User profile" %}{{ profile.referral }}</p>
+                      <p class="card-text">{% trans "Facebook name: " context "User profile" %}{{ profile.fb_name }}</p>
+                      <p class="card-text">{% trans "Twitter handle: " context "User profile" %}{{ profile.twitter_handle }}</p>
+                      <p class="card-text">{% trans "Instagram handle: " context "User profile" %}{{ profile.insta_handle }}</p>
+                      <p class="card-text">{% trans "Snapchat name: " context "User profile" %}{{ profile.snapchat_name }}</p>
+                      <br>
+                    <ul class="icons">
+                      <li>
+                        <a href="{% url "account:profile-edit" %}">
+                          {% trans "Edit" context "User profile action" %}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 {% endblock content %}

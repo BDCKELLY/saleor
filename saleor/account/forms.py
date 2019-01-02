@@ -124,3 +124,21 @@ class PasswordResetForm(django_forms.PasswordResetForm, FormWithReCaptcha):
         # template, we remove it from the context.
         del context['user']
         emails.send_password_reset_email.delay(context, to_email)
+
+class CustomerAttributesForm(forms.ModelForm, FormWithReCaptcha):
+
+    class Meta:
+        model = User
+        fields = (
+            'title', 'first_name', 'middle_initial', 'last_name', 'gender','marital_status',
+            'dob', 'occupation', 'referral', 'fb_name', 'twitter_handle',
+            'insta_handle', 'snapchat_name',
+            )
+        labels = {
+            'dob': 'Date of birth',
+            'fb_name': 'Facebook name',
+            'insta_handle': 'Instagram handle',
+            }
+        widget = {
+            'dob': forms.SelectDateWidget(),
+            }

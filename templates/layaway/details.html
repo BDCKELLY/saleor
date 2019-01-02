@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  <ul class="breadcrumbs list-unstyled">
+    <li>
+      <a href="{% url 'home' %}">
+        {% trans "Home" context "Main navigation item" %}
+      </a>
+    </li>
+      <li>
+        <a href="#">
+          {% trans "Layaway" context "Main navigation item" %}
+        </a>
+      </li>
+  </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="layaway">
+  <div class="row">
+    <div class="col-sm-12 layaway__block1">
+      <div class="layaway--square">
+        <div class="layaway--content">
+          <div class="layaway--content-wrapper">
+            <div class="layaway--content-inner">
+              <h1>Gold Layaway Example</h1>
+              <h2>1 oz. X {{ gold_price }} per oz. (acquisition cost) = {{ extend_price }} Total Layaway Value</h2>
+              <h2>(1 oz. max for 1st layaway)</h2>
+              <br>
+              <h2>{{ setup_fee }} Set-up Fee (Paid at initiation of new layaway)</h2>
+              <h2>{{ monthly_price }} Monthly electronic funds transfer (EFT) from your Bank or Credit Union account.</h2>
+              <br>
+              <h2>Example timeline:</h2>
+              <ul>
+                <li>You complete your layaway on January 5th.</li>
+                <li>Your 12 month layaway begins billing on Feb. 5th.</li>
+                <li>You realize in June and October, you need to skip your payments ({{ skip_fee }} payment delay fee).</li>
+                <li>After the layaway is fully paid, you can choose to have us ship you the gold or buy it from you.</li>
+              </ul>
+              <div class="container">
+                <div class="row justify-content-left">
+                  <div class="table-responsive">
+                    <table class="table table-bordered layaway--calendar">
+                      <thead>
+                        <tr class="d-flex">
+                          <th class="col-1">Jan 5</th>
+                          <th class="col-1">Feb 5</th>
+                          <th class="col-1">Mar 5</th>
+                          <th class="col-1">Apr 5</th>
+                          <th class="col-1">May 5</th>
+                          <th class="col-1 layaway--calendar--white">Jun 5</th>
+                          <th class="col-1">Jul 5</th>
+                          <th class="col-1">Aug 5</th>
+                          <th class="col-1">Sep 5</th>
+                          <th class="col-1 layaway--calendar--white">Oct 5</th>
+                          <th class="col-1">Nov 5</th>
+                          <th class="col-1">Dec 5</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="d-flex">
+                          <td class="col-1">{{ setup_fee }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1 layaway--calendar--white">{{ skip_fee }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1 layaway--calendar--white">{{ skip_fee }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row justify-content-left">
+                  <div class="table-responsive">
+                    <table class="table table-bordered layaway--calendar">
+                      <caption>Layaway Plan</caption>  
+                      <thead>
+                        <tr class="d-flex">
+                          <th class="col-1">Jan 5</th>
+                          <th class="col-1">Feb 5</th>
+                          <th class="col-1">Mar 5</th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                          <th class="col-1 clear"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class='d-flex'>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1">{{ monthly_price }}</td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                          <td class="col-1 clear"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -193,6 +193,10 @@
         <h3>{% trans "Description" context "Product details title" %}</h3>
         <hr>
         {{ product.translated.description|safe }}
+        <p>{% price product.setup_fee %} set-up fee</p>
+        <p>{% price monthly_price %} monthly installment</p>
+        <p>{{ first_installment }} 1st installment</p>
+        <p>{{ last_installment }} last installment (if no months skipped)</p>
       </div>
       <hr>
       <table>

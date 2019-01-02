@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import pgettext, ugettext_lazy as _
@@ -14,7 +14,7 @@ from ..core.utils import get_paginator_items
 from .emails import send_account_delete_confirmation_email
 from .forms import (
     ChangePasswordForm, LoginForm, PasswordResetForm, SignupForm,
-    get_address_form, logout_on_password_change)
+    get_address_form, logout_on_password_change, CustomerAttributesForm)
 
 
 @find_and_assign_anonymous_cart()
@@ -81,7 +81,8 @@ def details(request):
         orders, settings.PAGINATE_BY, request.GET.get('page'))
     ctx = {'addresses': request.user.addresses.all(),
            'orders': orders_paginated,
-           'change_password_form': password_form}
+           'change_password_form': password_form,
+           'profile':request.user}
 
     return TemplateResponse(request, 'account/details.html', ctx)
 
@@ -156,3 +157,17 @@ def account_delete_confirm(request, token):
 
     return TemplateResponse(
         request, 'account/account_delete_prompt.html')
+
+@login_required
+def customer_attributes_edit(request):
+    form = CustomerAttributesForm(request.POST or None, instance = request.user)
+    status = 200
+    if form.is_valid():
+        form.save()
+        msg = pgettext(
+            'Storefront message', 'Updated profile')
+        messages.success(request, msg)
+        return HttpResponseRedirect(reverse('account:details') + '#profile')
+    return TemplateResponse(
+        request, 'account/customer_attributes_edit.html',
+        {'form': form})

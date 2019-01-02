@@ -107,6 +107,9 @@
                 <div class="row">
                   {{ product_form.collections|materializecss }}
                 </div>
+                <div class="row">
+                  {{ product_form.setup_fee|materializecss }}
+                </div>
                 {% if product.product_type.is_shipping_required %}
                   <span class="card-title">{% trans "Shipping" %}</span>
                   <br>

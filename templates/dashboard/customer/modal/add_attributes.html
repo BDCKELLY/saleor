@@ -1,0 +1,20 @@
+{% extends "dashboard/base_modal.html" %}
+
+{% load i18n %}
+{% load materializecss %}
+
+{% block action_url %}
+  {% url 'dashboard:customer-add-attributes' customer_pk=customer.pk %}
+{% endblock %}
+
+{% block title %}
+  {% trans "Add attributes" context "Modal add attributes title" %}
+{% endblock %}
+
+{% block content %}
+  {{ form|materializecss }}
+{% endblock %}
+
+{% block primary_action %}
+  {% trans "Save attributes" context "Modal add attributes primary action" %}
+{% endblock %}

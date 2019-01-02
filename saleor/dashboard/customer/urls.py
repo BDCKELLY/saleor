@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/delete/$', views.customer_delete,
         name='customer-delete'),
     url(r'^ajax/users/$', views.ajax_users_list, name='ajax-users-list'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.customer_attributes_edit,
+        name='customer-attributes-update'),
     url(r'^(?P<customer_pk>[0-9]+)/add-note/$',
         views.customer_add_note, name='customer-add-note')]

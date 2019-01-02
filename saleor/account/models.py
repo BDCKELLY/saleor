@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.db.models import Q
 from django.forms.models import model_to_dict
+from django.forms import ModelForm
 from django.utils import timezone
 from django.utils.translation import pgettext_lazy
 from django_countries.fields import Country, CountryField
@@ -105,6 +106,11 @@ class UserManager(BaseUserManager):
 def get_token():
     return str(uuid.uuid4())
 
+TITLE_CHOICES = (
+    ('MR', 'Mr.'),
+    ('MRS', 'Mrs.'),
+    ('MS', 'Ms.'),
+)
 
 class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(unique=True)
@@ -121,6 +127,19 @@ class User(PermissionsMixin, AbstractBaseUser):
     default_billing_address = models.ForeignKey(
         Address, related_name='+', null=True, blank=True,
         on_delete=models.SET_NULL)
+    title = models.CharField(max_length=3, blank=True, choices=TITLE_CHOICES)
+    first_name = models.CharField(max_length=256, blank=True)
+    middle_initial = models.CharField(max_length=1, blank=True)
+    last_name = models.CharField(max_length=256, blank=True) 
+    gender = models.CharField(max_length=1, blank=True)
+    marital_status = models.CharField(max_length=1, blank=True)
+    dob = models.DateField(max_length=8, blank=True, null=True)
+    occupation = models.CharField(max_length=256, blank=True)
+    referral = models.CharField(max_length=256, blank=True)
+    fb_name = models.CharField(max_length=256, blank=True)
+    twitter_handle = models.CharField(max_length=256, blank=True)
+    insta_handle = models.CharField(max_length=256, blank=True)
+    snapchat_name = models.CharField(max_length=256, blank=True)
 
     USERNAME_FIELD = 'email'
 
@@ -150,7 +169,6 @@ class User(PermissionsMixin, AbstractBaseUser):
             return '%s %s (%s)' % (
                 address.first_name, address.last_name, self.email)
         return self.email
-
 
 class CustomerNote(models.Model):
     user = models.ForeignKey(

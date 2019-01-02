@@ -53,6 +53,15 @@ class CustomerForm(forms.ModelForm):
             'note': pgettext_lazy(
                 'Customer form: customer note field', 'Notes')}
 
+class CustomerAttributesForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['title']
+        widget = {
+            'title': forms.Textarea()}
+        labels = {
+            'title': pgettext_lazy('Customer title', 'Title')
+            }
 
 class CustomerNoteForm(forms.ModelForm):
     class Meta:

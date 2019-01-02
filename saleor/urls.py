@@ -6,6 +6,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.views import serve
 from django.views.decorators.csrf import csrf_exempt
 from django.views.i18n import JavaScriptCatalog, set_language
+from django.views.generic import TemplateView
 
 from .account.urls import urlpatterns as account_urls
 from .checkout.urls import (
@@ -18,6 +19,7 @@ from .graphql.api import schema
 from .graphql.file_upload.views import FileUploadGraphQLView
 from .order.urls import urlpatterns as order_urls
 from .page.urls import urlpatterns as page_urls
+from .layaway.urls import urlpatterns as layaway_urls
 from .product.urls import urlpatterns as product_urls
 from .search.urls import urlpatterns as search_urls
 
@@ -41,6 +43,8 @@ translatable_urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     url(r'^order/', include((order_urls, 'order'), namespace='order')),
     url(r'^page/', include((page_urls, 'page'), namespace='page')),
+    url(r'^layaway/', 
+        include((layaway_urls, 'layaway'), namespace='layaway')),
     url(r'^products/',
         include((product_urls, 'product'), namespace='product')),
     url(r'^account/',

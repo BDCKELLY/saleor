@@ -98,6 +98,24 @@ def ajax_users_list(request):
         {'id': user.pk, 'text': user.get_ajax_label()} for user in queryset]
     return JsonResponse({'results': users})
 
+@staff_member_required
+@permission_required('account.manage_users')
+def customer_attributes_edit(request, pk):
+    customer = get_object_or_404(User, pk=pk)
+    form = CustomerAttributesForm(request.POST or None, instance=attributes)
+    status = 200
+    if form.is_valid():
+        form.save()
+        msg = pgettext_lazy(
+            'Dashboard message related to an customer', 'Added attributes')
+        messages.success(request, msg)
+    elif form.errors:
+        status = 400
+    ctx = {'customer': customer, 'form': form}
+    ctx.update(csrf(request))
+    template = 'dashboard/customer/modal/add_attributes.html'
+    return TemplateResponse(request, template, ctx, status=status)
+
 
 @staff_member_required
 @permission_required('account.manage_users')

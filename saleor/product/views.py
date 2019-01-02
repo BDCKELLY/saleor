@@ -52,9 +52,17 @@ def product_details(request, slug, product_id, form=None):
     """
     products = products_with_details(user=request.user)
     product = get_object_or_404(products, id=product_id)
+    units = 1
+    extended_price = product.price * units
+    monthly_price = extended_price / 12
     if product.get_slug() != slug:
         return HttpResponsePermanentRedirect(product.get_absolute_url())
     today = datetime.date.today()
+    if today.month == 12:
+        first_installment = today.replace(month=1)
+    else:
+        first_installment = today.replace(month=today.month+1)
+    last_installment = first_installment.replace(year=first_installment.year + 1)
     is_visible = (
         product.available_on is None or product.available_on <= today)
     if form is None:
@@ -77,6 +85,10 @@ def product_details(request, slug, product_id, form=None):
         'product_attributes': product_attributes,
         'product_images': product_images,
         'show_variant_picker': show_variant_picker,
+        'extended_price': extended_price,
+        'monthly_price': monthly_price,
+        'first_installment': first_installment,
+        'last_installment': last_installment,
         'variant_picker_data': json.dumps(
             variant_picker_data, default=serialize_decimal),
         'json_ld_product_data': json.dumps(
